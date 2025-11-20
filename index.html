@@ -222,6 +222,7 @@
             border-radius: 4px; /* 改为圆角矩形，比圆形更严肃学术 */
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s ease; /* 头像互动 */
         }
         
         .profile-photo img {
@@ -232,7 +233,7 @@
         }
 
         .profile-photo:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .about-text p {
@@ -242,25 +243,35 @@
             text-align: justify; /* 两端对齐更整洁 */
         }
 
-        /* --- Publications 调整 --- */
+
+        /* --- Publications 互动增强 --- */
         .pub-item {
-            margin-bottom: 25px;
-            padding-bottom: 25px; /* 改为下划线分割，比卡片式更简洁 */
-            border-bottom: 1px solid #eee;
-            transition: transform 0.2s ease;
+            margin-bottom: 20px;
+            padding: 20px; /* 增加内边距 */
+            border-radius: 10px; /* 圆角 */
+            border: 1px solid transparent; /* 预留边框位置防止跳动 */
+            background: transparent;
+            transition: all 0.3s ease;
         }
-        
-        /* 移除最后一项的下划线 */
-        .pub-item:last-child {
-            border-bottom: none;
+
+        /* 互动：Publication 悬浮效果 (高级感核心) */
+        .pub-item:hover {
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 柔和阴影 */
+            transform: translateY(-4px) scale(1.01); /* 整体上浮 */
+            border-color: rgba(167, 29, 42, 0.1); /* 极淡的红色边框 */
         }
 
         .pub-title {
-            font-size: 1rem; /* 调小 */
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 6px;
-            line-height: 1.4;
+            transition: color 0.3s;
+        }
+        
+        .pub-item:hover .pub-title {
+            color: var(--accent-color); /* 标题变红 */
         }
 
         .pub-authors {
