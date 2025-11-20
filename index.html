@@ -298,7 +298,7 @@
 
         /* 下部分：宽幅 Biography */
         .bio-text {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-main);
             text-align: justify;
             line-height: 1.8;
@@ -544,6 +544,14 @@
 
     <!-- Script -->
     <script>
+        window.onload = function() {
+            if (window.scrollY === 0) { // 只有当用户在顶部时才执行，防止刷新后位置乱跳
+                window.scrollTo({
+                    top: window.innerHeight * 0.7, 
+                    behavior: "instant" 
+                });
+            }
+        };
         const nav = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
