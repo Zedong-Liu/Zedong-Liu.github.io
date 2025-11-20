@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zedong Liu | Researcher</title>
     
-    <!-- 引入 Google Fonts: 用 Merriweather 做标题增加学术气质，Inter 做正文保持现代感 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS 变量定义 --- */
+        /* --- CSS 变量定义 (修改：红色主题 + 尺寸缩小) --- */
         :root {
             --bg-color: #ffffff;
-            --text-main: #333333;
-            --text-light: #666666;
-            --accent-color: #2c5282; /* 稳重的深蓝色，适合科研 */
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --transition-speed: 0.6s;
+            --text-main: #2a2a2a; /* 稍微加深一点灰色，更锐利 */
+            --text-light: #555555;
+            /* 修改 4: 红色主题，选用沉稳的“哈佛红”或“砖红”，避免刺眼 */
+            --accent-color: #a71d2a; 
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --hero-visible-height: 35vh; /* 修改 2: 控制首屏只露出 35% */
         }
 
-        /* --- 基础重置 --- */
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +30,9 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            line-height: 1.8;
+            /* 修改 3: 全局字体稍微调小，显得更秀气 */
+            font-size: 15px; 
+            line-height: 1.7;
             background-color: var(--bg-color);
             overflow-x: hidden;
         }
@@ -44,20 +45,20 @@
         a {
             text-decoration: none;
             color: inherit;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
         }
 
         a:hover {
             color: var(--accent-color);
         }
 
-        /* --- 导航栏 (玻璃拟态) --- */
+        /* --- 导航栏 (更紧凑) --- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 50px;
+            padding: 15px 40px; /* 减小内边距 */
             z-index: 100;
             display: flex;
             justify-content: space-between;
@@ -67,36 +68,36 @@
 
         nav.scrolled {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px); /* 毛玻璃效果 */
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            padding: 15px 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            padding: 10px 40px; /* 滚动后变得更窄 */
         }
 
         .nav-logo {
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* 稍微调小 */
             font-weight: 700;
-            letter-spacing: 1px;
             font-family: 'Merriweather', serif;
+            color: var(--text-main);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* 字体调小 */
             font-weight: 500;
             position: relative;
+            color: var(--text-main);
         }
 
-        /* 导航链接下划线动画 */
         .nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
+            bottom: -4px;
             left: 0;
             background-color: var(--accent-color);
             transition: width 0.3s ease;
@@ -106,16 +107,15 @@
             width: 100%;
         }
 
-        /* --- Hero Section (视差固定背景) --- */
+        /* --- Hero Section (调整：高度与文字位置) --- */
         .hero {
-            position: fixed; /* 关键：固定定位 */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            /* 这里的图片使用了 Unsplash 的随机山脉图，你可以替换成你自己的 */
+            height: 80vh; /* 不需要100vh了，背景图不需要加载那么大 */
             background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') no-repeat center center/cover;
-            z-index: -1; /* 放在最底层 */
+            z-index: -1;
         }
 
         .hero-overlay {
@@ -124,65 +124,72 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.2); /* 轻微变暗，保证白色文字可读性 */
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0)); /* 让顶部文字更清晰 */
+            /* 修改 2: 文字不再垂直居中，而是放在顶部露出区域 */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; 
             align-items: center;
+            padding-top: 120px; /* 避开导航栏的位置 */
             text-align: center;
-            color: white;
         }
 
+        /* 修改 3: 标题尺寸大幅缩小 */
         .hero-title {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            opacity: 0; /* 初始隐藏，由JS控制浮现 */
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.5s;
+            font-size: 2.8rem; 
+            margin-bottom: 8px;
+            color: #1a1a1a; /* 颜色加深，因为背景可能比较亮 */
+            text-shadow: 0 2px 10px rgba(255,255,255,0.5); /* 防止背景图太杂看不清字 */
+            animation: fadeUp 0.8s forwards 0.2s;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
+            font-size: 1.1rem; /* 调小 */
+            font-weight: 400;
+            color: #333;
+            max-width: 600px;
+            animation: fadeUp 0.8s forwards 0.4s;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.8s;
+            transform: translateY(20px);
         }
 
-        /* --- 内容区域容器 --- */
+        /* --- 内容区域 (调整：初始位置) --- */
         .content-wrapper {
-            margin-top: 100vh; /* 这里的留白是为了漏出下面的 Hero */
+            /* 修改 2: 关键！初始这就挡住大部分图片，只留出上面的 35vh */
+            margin-top: var(--hero-visible-height); 
             position: relative;
             z-index: 1;
             background-color: var(--bg-color);
-            padding-bottom: 100px;
+            padding-bottom: 80px;
+            min-height: 100vh; /* 保证内容不够时也能盖住底部 */
         }
 
-        /* 顶部渐变过渡 (高级感来源) */
+        /* 修改 1: 渐变范围缩小 */
         .content-wrapper::before {
             content: '';
             position: absolute;
-            top: -150px; /* 向上延伸 */
+            top: -60px; /* 以前是150px，现在只要60px */
             left: 0;
             width: 100%;
-            height: 150px;
-            /* 从透明到白色的线性渐变 */
+            height: 60px;
+            /* 透明到白色的渐变 */
             background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bg-color));
             pointer-events: none;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 850px; /* 稍微缩窄容器宽度，利于阅读 */
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px; /* 减小 Padding */
         }
 
-        /* --- 通用 Section 样式 --- */
         section {
-            margin-bottom: 100px;
-            opacity: 0; /* 滚动触发动画 */
-            transform: translateY(40px);
-            transition: all 0.8s ease-out;
+            margin-bottom: 70px; /* 减小 Section 间距 */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
         }
 
         section.visible {
@@ -190,126 +197,138 @@
             transform: translateY(0);
         }
 
+        /* 修改 3: 章节标题调小 */
         .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 20px;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            border-left: 3px solid var(--accent-color); /* 红色边框 */
+            padding-left: 15px;
             color: var(--text-main);
         }
 
-        /* --- About Section --- */
+        /* --- About 调整 --- */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1.2fr 2.8fr; /* 左侧头像区域稍微变窄 */
             gap: 40px;
             align-items: start;
         }
 
         .profile-photo {
             width: 100%;
+            max-width: 200px; /* 修改 3: 头像尺寸限制，更精致 */
             aspect-ratio: 1/1;
-            background-color: #eee;
-            border-radius: 50%; /* 圆形头像 */
+            background-color: #f0f0f0;
+            border-radius: 4px; /* 改为圆角矩形，比圆形更严肃学术 */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
         
         .profile-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-photo:hover img {
+            transform: scale(1.05);
         }
 
         .about-text p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-size: 0.95rem; /* 修改 3: 正文字体调小 */
             color: var(--text-light);
+            text-align: justify; /* 两端对齐更整洁 */
         }
 
-        /* --- Publications Section --- */
+        /* --- Publications 调整 --- */
         .pub-item {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            border: 1px solid transparent;
+            margin-bottom: 25px;
+            padding-bottom: 25px; /* 改为下划线分割，比卡片式更简洁 */
+            border-bottom: 1px solid #eee;
+            transition: transform 0.2s ease;
         }
-
-        .pub-item:hover {
-            background-color: #fafafa;
-            border-color: #eee;
-            transform: translateX(10px);
+        
+        /* 移除最后一项的下划线 */
+        .pub-item:last-child {
+            border-bottom: none;
         }
 
         .pub-title {
-            font-size: 1.1rem;
+            font-size: 1rem; /* 调小 */
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            line-height: 1.4;
         }
 
         .pub-authors {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-light);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .pub-venue {
+            font-size: 0.85rem;
+            color: var(--accent-color); /* 红色高亮会议名 */
             font-style: italic;
-            font-size: 0.9rem;
-            color: var(--accent-color);
+            margin-bottom: 8px;
         }
 
         .pub-links a {
-            font-size: 0.8rem;
-            margin-right: 10px;
+            font-size: 0.75rem;
+            margin-right: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            opacity: 0.7;
             border: 1px solid #ddd;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
         }
 
         .pub-links a:hover {
-            background: var(--accent-color);
-            color: white;
+            opacity: 1;
             border-color: var(--accent-color);
+            color: var(--accent-color); /* 红色文字 */
+            background: transparent; /* 保持清爽，不加背景色 */
         }
 
-        /* --- Awards Section --- */
+        /* --- Awards 调整 --- */
         .award-list {
             list-style: none;
         }
 
         .award-item {
             display: flex;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 12px; /* 更加紧凑 */
+            align-items: baseline;
         }
 
         .award-year {
             font-weight: 700;
-            width: 80px;
+            width: 60px;
             flex-shrink: 0;
-            color: var(--text-main);
+            color: var(--accent-color); /* 年份用红色强调 */
+            font-size: 0.9rem;
         }
 
         .award-desc {
-            color: var(--text-light);
+            font-size: 0.95rem;
+            color: var(--text-main);
         }
 
         /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 50px 0;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
+            padding: 40px 0;
+            color: #999;
+            font-size: 0.8rem;
         }
 
-        /* --- 动画 Keyframes --- */
         @keyframes fadeUp {
             to {
                 opacity: 1;
@@ -317,29 +336,33 @@
             }
         }
 
-        /* --- 移动端适配 --- */
+        /* --- Mobile --- */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .nav-links { display: none; } /* 简单处理：移动端隐藏菜单，实际可做汉堡菜单 */
-            .about-grid { grid-template-columns: 1fr; }
-            .profile-photo { width: 150px; margin: 0 auto; }
-            nav { padding: 15px 20px; }
+            .hero-title { font-size: 2rem; }
+            .nav-links { display: none; } /* 移动端隐藏菜单 */
+            .about-grid { grid-template-columns: 1fr; gap: 20px; }
+            .profile-photo { width: 140px; margin: 0 auto 20px auto; }
+            .container { padding: 40px 20px; }
+            .content-wrapper { margin-top: 40vh; } /* 移动端多露一点图 */
         }
     </style>
 </head>
+
+<!-- --- Body 开始 --- -->
 <body>
 
-    <!-- 顶部 Hero 区域 (被固定在后面) -->
+    <!-- 1. 顶部 Hero (固定背景) -->
     <header class="hero" id="home">
         <div class="hero-overlay">
+            <!-- 这些文字现在会被放在顶部露出的 35% 区域内 -->
             <h1 class="hero-title">Zedong Liu</h1>
-            <p class="hero-subtitle">Researcher in Artificial Intelligence & Computer Vision</p>
+            <p class="hero-subtitle">Ph.D. Candidate in Computer Science</p>
         </div>
     </header>
 
-    <!-- 导航栏 -->
+    <!-- 2. 导航栏 -->
     <nav id="navbar">
-        <div class="nav-logo">Zedong Liu</div>
+        <div class="nav-logo">Z. Liu</div> <!-- 简写 Logo 更显精致 -->
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
@@ -348,27 +371,29 @@
         </div>
     </nav>
 
-    <!-- 主要内容区域 (白色背景，向上滚动覆盖) -->
+    <!-- 3. 主要内容区域 -->
     <div class="content-wrapper">
         
-        <!-- About Section -->
         <div class="container">
+            
+            <!-- About Section -->
             <section id="about">
-                <h2 class="section-title">About Me</h2>
+                <h2 class="section-title">Biography</h2>
                 <div class="about-grid">
                     <div class="profile-photo">
-                        <!-- 请替换这里为你的真实照片 URL -->
-                        <img src="https://ui-avatars.com/api/?name=Zedong+Liu&background=0D8ABC&color=fff&size=512" alt="Zedong Liu">
+                        <!-- 建议使用一张深色背景或正装的职业照 -->
+                        <img src="https://ui-avatars.com/api/?name=Zedong+Liu&background=f0f0f0&color=333&size=512" alt="Zedong Liu">
                     </div>
                     <div class="about-text">
                         <p>
-                            Hi, I am Zedong Liu. I am currently a Researcher focusing on <strong>Machine Learning</strong> and <strong>Computer Vision</strong>. My research interests lie in the intersection of deep learning theory and practical applications in autonomous systems.
+                            I am a Researcher at <strong>[Institute/University Name]</strong>. My research interests span across <strong>Computer Vision</strong>, <strong>Machine Learning</strong>, and their applications in Robotics.
                         </p>
                         <p>
-                            I received my Ph.D. from [Your University] in 202X. Prior to that, I obtained my B.S. degree from [Your University]. I am passionate about building AI systems that can perceive, reason, and interact with the physical world.
+                            I aim to develop efficient and robust algorithms that enable machines to perceive the world with minimal supervision. Previously, I obtained my Ph.D. from [University] advised by Prof. [Name].
                         </p>
-                        <p>
-                            Feel free to reach out to me via email at: <a href="mailto:your.email@example.com">your.email@example.com</a>
+                        <p style="margin-top: 20px; font-size: 0.9rem;">
+                            <span style="color: var(--accent-color);">Email:</span> zedong.liu [at] example.com <br>
+                            <span style="color: var(--accent-color);">Github:</span> github.com/zedongliu
                         </p>
                     </div>
                 </div>
@@ -378,84 +403,71 @@
             <section id="publications">
                 <h2 class="section-title">Selected Publications</h2>
                 
-                <!-- Paper 1 -->
                 <div class="pub-item">
-                    <div class="pub-title">Deep Learning for High-Resolution Image Reconstruction</div>
-                    <div class="pub-authors"><strong>Zedong Liu</strong>, Collaborator A, Collaborator B</div>
-                    <div class="pub-venue">IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2024</div>
+                    <div class="pub-title">Efficient Transformers for High-Resolution Image Synthesis</div>
+                    <div class="pub-authors"><strong>Zedong Liu</strong>, Co-author A, Co-author B</div>
+                    <div class="pub-venue">CVPR 2024 (Oral)</div>
                     <div class="pub-links">
-                        <a href="#">PDF</a>
+                        <a href="#">Paper</a>
                         <a href="#">Code</a>
-                        <a href="#">Project Page</a>
+                        <a href="#">Project</a>
                     </div>
                 </div>
 
-                <!-- Paper 2 -->
                 <div class="pub-item">
-                    <div class="pub-title">Unsupervised Learning in Dynamic Environments</div>
-                    <div class="pub-authors">Author X, <strong>Zedong Liu</strong> (Corresponding Author)</div>
-                    <div class="pub-venue">International Conference on Machine Learning (ICML), 2023</div>
+                    <div class="pub-title">Learning to Navigate in Dynamic Environments</div>
+                    <div class="pub-authors">Author X, <strong>Zedong Liu</strong>, Author Y</div>
+                    <div class="pub-venue">NeurIPS 2023</div>
                     <div class="pub-links">
-                        <a href="#">PDF</a>
+                        <a href="#">Paper</a>
                         <a href="#">Code</a>
                     </div>
                 </div>
 
-                <!-- Paper 3 -->
                 <div class="pub-item">
-                    <div class="pub-title">A Novel Framework for 3D Object Detection</div>
-                    <div class="pub-authors"><strong>Zedong Liu</strong>, Advisor Y</div>
-                    <div class="pub-venue">NeurIPS, 2022 (Oral Presentation)</div>
+                    <div class="pub-title">Self-Supervised Representation Learning for 3D Shapes</div>
+                    <div class="pub-authors"><strong>Zedong Liu</strong>, Advisor Z</div>
+                    <div class="pub-venue">ICCV 2023</div>
                     <div class="pub-links">
-                        <a href="#">PDF</a>
-                        <a href="#">Slides</a>
+                        <a href="#">Paper</a>
                     </div>
                 </div>
             </section>
 
             <!-- Awards Section -->
             <section id="awards">
-                <h2 class="section-title">Honors & Awards</h2>
+                <h2 class="section-title">Awards</h2>
                 <ul class="award-list">
                     <li class="award-item">
                         <span class="award-year">2024</span>
-                        <span class="award-desc">Best Paper Award, CVPR 2024</span>
+                        <span class="award-desc">Google PhD Fellowship</span>
                     </li>
                     <li class="award-item">
                         <span class="award-year">2023</span>
-                        <span class="award-desc">National Scholarship for Doctoral Students</span>
+                        <span class="award-desc">Best Paper Award Finalist, CVPR</span>
                     </li>
                     <li class="award-item">
-                        <span class="award-year">2021</span>
-                        <span class="award-desc">Outstanding Graduate Award, University of Science and Technology</span>
+                        <span class="award-year">2022</span>
+                        <span class="award-desc">National Scholarship</span>
                     </li>
                 </ul>
             </section>
 
-            <!-- 其他部分（例如新闻），你可以根据需要保留或删除 -->
-            <section id="news">
-                <h2 class="section-title">Recent News</h2>
-                <div style="font-size: 0.95rem; color: var(--text-light);">
-                    <p style="margin-bottom: 10px;"><strong>[Nov 2025]</strong> One paper accepted to CVPR 2026!</p>
-                    <p style="margin-bottom: 10px;"><strong>[Sep 2025]</strong> Joining AI Lab as a Research Intern.</p>
-                    <p><strong>[Jun 2025]</strong> Attended ICML in Vancouver.</p>
-                </div>
-            </section>
-
         </div> <!-- End Container -->
 
-        <!-- 页脚 -->
         <footer>
-            <p>&copy; 2025 Zedong Liu. All Rights Reserved.</p>
+            <p>&copy; 2025 Zedong Liu. Theme designed for Researchers.</p>
         </footer>
 
-    </div> <!-- End Content Wrapper -->
+    </div>
 
-    <!-- JavaScript 交互代码 -->
+    <!-- 脚本逻辑 -->
     <script>
-        // 1. 导航栏滚动监听：当页面滚动超过一定距离，导航栏变身毛玻璃效果
-        const nav = document.querySelector('nav');
+        // 滚动监听与动画触发
+        const nav = document.getElementById('navbar');
+        
         window.addEventListener('scroll', () => {
+            // 导航栏变色逻辑
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {
@@ -463,45 +475,28 @@
             }
         });
 
-        // 2. 章节入场动画：使用 Intersection Observer API 实现滚动到哪里，哪里浮现
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1 // 当元素出现 10% 时触发
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        // 简单的入场动画
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // 动画只触发一次，触发后取消观察
-                    observer.unobserve(entry.target); 
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        // 选取所有 section 元素进行观察
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // 3. 平滑滚动：点击导航链接时平滑滚动到对应位置
+        // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // 计算滚动位置，减去导航栏高度以免遮挡标题
-                    const headerOffset = 80;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    const headerOffset = 70;
+                    const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                 }
             });
         });
