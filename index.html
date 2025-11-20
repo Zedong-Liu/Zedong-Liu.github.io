@@ -7,18 +7,16 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS 变量定义 (修改：红色主题 + 尺寸缩小) --- */
+        /* --- 1. 全局变量 --- */
         :root {
             --bg-color: #ffffff;
-            --text-main: #2a2a2a; /* 稍微加深一点灰色，更锐利 */
+            --text-main: #2a2a2a; 
             --text-light: #555555;
-            /* 修改 4: 红色主题，选用沉稳的“哈佛红”或“砖红” */
-            --accent-color: #a71d2a; 
-            --glass-bg: rgba(255, 255, 255, 0.9);
-            --hero-visible-height: 35vh; /* 修改 2: 控制首屏只露出 35% */
+            --accent-color: #a71d2a; /* 哈佛红/砖红 */
+            --glass-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -30,8 +28,7 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            /* 修改 3: 全局字体稍微调小，显得更秀气 */
-            font-size: 15px; 
+            font-size: 15px;
             line-height: 1.7;
             background-color: var(--bg-color);
             overflow-x: hidden;
@@ -52,13 +49,13 @@
             color: var(--accent-color);
         }
 
-        /* --- 导航栏 (更紧凑) --- */
+        /* --- 2. 导航栏 --- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 15px 40px; /* 减小内边距 */
+            padding: 20px 50px;
             z-index: 100;
             display: flex;
             justify-content: space-between;
@@ -69,28 +66,34 @@
         nav.scrolled {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
-            padding: 10px 40px; /* 滚动后变得更窄 */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 15px 50px;
         }
 
         .nav-logo {
-            font-size: 1.1rem; /* 稍微调小 */
+            font-size: 1.2rem;
             font-weight: 700;
             font-family: 'Merriweather', serif;
             color: var(--text-main);
+            text-shadow: 0 2px 5px rgba(255,255,255,0.8); 
         }
+        
+        nav.scrolled .nav-logo { text-shadow: none; }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav-links a {
-            font-size: 0.85rem; /* 字体调小 */
+            font-size: 0.9rem;
             font-weight: 500;
             position: relative;
             color: var(--text-main);
+            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
         }
+        
+        nav.scrolled .nav-links a { text-shadow: none; }
 
         .nav-links a::after {
             content: '';
@@ -103,17 +106,16 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover::after { width: 100%; }
 
-        /* --- Hero Section (调整：高度与文字位置) --- */
+        /* --- 3. Hero Section (全画幅风景) --- */
         .hero {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 80vh; /* 不需要100vh了，背景图不需要加载那么大 */
+            height: 100vh;
+            /* 这里还是用风景图，你可以替换为你自己的 */
             background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') no-repeat center center/cover;
             z-index: -1;
         }
@@ -124,72 +126,71 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0)); /* 让顶部文字更清晰 */
-            /* 修改 2: 文字不再垂直居中，而是放在顶部露出区域 */
+            background: rgba(255,255,255,0.1); 
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
+            justify-content: center;
             align-items: center;
-            padding-top: 120px; /* 避开导航栏的位置 */
             text-align: center;
         }
 
-        /* 修改 3: 标题尺寸大幅缩小 */
         .hero-title {
-            font-size: 2.8rem; 
-            margin-bottom: 8px;
-            color: #1a1a1a; /* 颜色加深，因为背景可能比较亮 */
-            text-shadow: 0 2px 10px rgba(255,255,255,0.5); /* 防止背景图太杂看不清字 */
-            animation: fadeUp 0.8s forwards 0.2s;
+            font-size: 3.5rem; 
+            margin-bottom: 10px;
+            color: #111; 
+            text-shadow: 0 0 20px rgba(255,255,255,0.9);
+            animation: fadeUp 1s forwards 0.2s;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
 
         .hero-subtitle {
-            font-size: 1.1rem; /* 调小 */
+            font-size: 1.2rem;
             font-weight: 400;
-            color: #333;
-            max-width: 600px;
-            animation: fadeUp 0.8s forwards 0.4s;
+            color: #222;
+            background: rgba(255,255,255,0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            animation: fadeUp 1s forwards 0.5s;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
 
-        /* --- 内容区域 (调整：初始位置) --- */
+        /* --- 4. 内容区域 (视差覆盖) --- */
         .content-wrapper {
-            /* 修改 2: 关键！初始这就挡住大部分图片，只留出上面的 35vh */
-            margin-top: var(--hero-visible-height); 
+            margin-top: 92vh; 
             position: relative;
             z-index: 1;
             background-color: var(--bg-color);
             padding-bottom: 80px;
-            min-height: 100vh; /* 保证内容不够时也能盖住底部 */
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
 
-        /* 修改 1: 渐变范围缩小 */
         .content-wrapper::before {
             content: '';
             position: absolute;
-            top: -60px; /* 以前是150px，现在只要60px */
+            top: -50px;
             left: 0;
             width: 100%;
-            height: 60px;
-            /* 透明到白色的渐变 */
-            background: linear-gradient(to bottom, rgba(255,255,255,0), var(--bg-color));
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
             pointer-events: none;
         }
 
         .container {
-            max-width: 850px; /* 稍微缩窄容器宽度，利于阅读 */
+            max-width: 850px;
             margin: 0 auto;
-            padding: 60px 20px; /* 减小 Padding */
+            padding: 80px 20px;
         }
 
         section {
-            margin-bottom: 70px; /* 减小 Section 间距 */
+            margin-bottom: 80px;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.6s ease-out;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         section.visible {
@@ -197,69 +198,133 @@
             transform: translateY(0);
         }
 
-        /* 修改 3: 章节标题调小 */
         .section-title {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 30px;
-            border-left: 3px solid var(--accent-color); /* 红色边框 */
+            border-left: 4px solid var(--accent-color);
             padding-left: 15px;
             color: var(--text-main);
         }
 
-        /* --- About 调整 --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 2.8fr; /* 左侧头像区域稍微变窄 */
+        /* --- About 区域重构 (Top: Profile, Bottom: Bio) --- */
+        
+        /* 上部分：个人信息卡片 */
+        .profile-header {
+            display: flex;
             gap: 40px;
-            align-items: start;
+            align-items: center;
+            margin-bottom: 40px;
         }
 
         .profile-photo {
-            width: 100%;
-            max-width: 200px; /* 修改 3: 头像尺寸限制，更精致 */
-            aspect-ratio: 1/1;
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
             background-color: #f0f0f0;
-            border-radius: 4px; /* 改为圆角矩形，比圆形更严肃学术 */
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.4s ease; /* 头像互动 */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .profile-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(167, 29, 42, 0.15);
         }
         
         .profile-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
-
+        
         .profile-photo:hover img {
             transform: scale(1.08);
         }
 
-        .about-text p {
-            margin-bottom: 15px;
-            font-size: 0.95rem; /* 修改 3: 正文字体调小 */
-            color: var(--text-light);
-            text-align: justify; /* 两端对齐更整洁 */
+        /* 右侧文字信息 */
+        .profile-info h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            line-height: 1.2;
         }
 
+        .profile-role {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            font-family: 'Merriweather', serif;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
 
-        /* --- Publications 互动增强 --- */
+        .profile-affil {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .profile-contact {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .profile-contact a {
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid #ddd;
+            padding: 4px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* 下部分：宽幅 Biography */
+        .bio-text {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .bio-text p {
+            margin-bottom: 20px;
+        }
+
+        /* --- Publications --- */
         .pub-item {
             margin-bottom: 20px;
-            padding: 20px; /* 增加内边距 */
-            border-radius: 10px; /* 圆角 */
-            border: 1px solid transparent; /* 预留边框位置防止跳动 */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid transparent;
             background: transparent;
             transition: all 0.3s ease;
         }
 
-        /* 互动：Publication 悬浮效果 (高级感核心) */
         .pub-item:hover {
             background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 柔和阴影 */
-            transform: translateY(-4px) scale(1.01); /* 整体上浮 */
-            border-color: rgba(167, 29, 42, 0.1); /* 极淡的红色边框 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(167, 29, 42, 0.1);
         }
 
         .pub-title {
@@ -270,110 +335,107 @@
             transition: color 0.3s;
         }
         
-        .pub-item:hover .pub-title {
-            color: var(--accent-color); /* 标题变红 */
-        }
+        .pub-item:hover .pub-title { color: var(--accent-color); }
 
         .pub-authors {
             font-size: 0.9rem;
             color: var(--text-light);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .pub-venue {
             font-size: 0.85rem;
-            color: var(--accent-color); /* 红色高亮会议名 */
-            font-style: italic;
-            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 10px;
         }
 
         .pub-links a {
+            display: inline-block;
             font-size: 0.75rem;
-            margin-right: 12px;
+            margin-right: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
             color: var(--text-main);
-            opacity: 0.7;
             border: 1px solid #ddd;
-            padding: 2px 8px;
-            border-radius: 3px;
+            padding: 3px 10px;
+            border-radius: 4px;
             transition: all 0.2s;
         }
 
         .pub-links a:hover {
-            opacity: 1;
             border-color: var(--accent-color);
-            color: var(--accent-color); /* 红色文字 */
-            background: transparent; /* 保持清爽，不加背景色 */
+            background-color: var(--accent-color);
+            color: white;
         }
 
-        /* --- Awards 调整 --- */
-        .award-list {
-            list-style: none;
-        }
-
+        /* --- Awards --- */
+        .award-list { list-style: none; }
+        
         .award-item {
             display: flex;
-            margin-bottom: 12px; /* 更加紧凑 */
-            align-items: baseline;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            transition: background 0.2s;
         }
+        
+        .award-item:hover { background: rgba(0,0,0,0.02); }
 
         .award-year {
             font-weight: 700;
             width: 60px;
             flex-shrink: 0;
-            color: var(--accent-color); /* 年份用红色强调 */
-            font-size: 0.9rem;
-        }
-
-        .award-desc {
-            font-size: 0.95rem;
-            color: var(--text-main);
+            color: var(--accent-color);
         }
 
         /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 40px 0;
-            color: #999;
+            padding: 50px 0;
+            color: #aaa;
             font-size: 0.8rem;
+            border-top: 1px solid #f5f5f5;
         }
 
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- Mobile --- */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2rem; }
-            .nav-links { display: none; } /* 移动端隐藏菜单 */
-            .about-grid { grid-template-columns: 1fr; gap: 20px; }
-            .profile-photo { width: 140px; margin: 0 auto 20px auto; }
-            .container { padding: 40px 20px; }
-            .content-wrapper { margin-top: 40vh; } /* 移动端多露一点图 */
+            .hero-title { font-size: 2.2rem; }
+            .nav-links { display: none; } 
+            
+            /* 移动端 About 布局改为垂直 */
+            .profile-header { 
+                flex-direction: column; 
+                text-align: center; 
+                gap: 20px;
+            }
+            .profile-photo { width: 160px; height: 160px; margin: 0 auto; }
+            .social-links { justify-content: center; }
+            
+            .container { padding: 50px 20px; }
+            .content-wrapper { margin-top: 85vh; } 
         }
     </style>
 </head>
 
-<!-- --- Body 开始 --- -->
 <body>
 
-    <!-- 1. 顶部 Hero (固定背景) -->
+    <!-- 1. Hero Section -->
     <header class="hero" id="home">
         <div class="hero-overlay">
-            <!-- 这些文字现在会被放在顶部露出的 35% 区域内 -->
             <h1 class="hero-title">Zedong Liu</h1>
-            <p class="hero-subtitle">Ph.D. Candidate in Computer Science</p>
+            <p class="hero-subtitle">Machine Learning Systems & Data Compression</p>
         </div>
     </header>
 
-    <!-- 2. 导航栏 -->
+    <!-- 2. Navigation -->
     <nav id="navbar">
-        <div class="nav-logo">Z. Liu</div> <!-- 简写 Logo 更显精致 -->
+        <div class="nav-logo">Z. Liu</div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
@@ -382,31 +444,48 @@
         </div>
     </nav>
 
-    <!-- 3. 主要内容区域 -->
+    <!-- 3. Main Content -->
     <div class="content-wrapper">
         
         <div class="container">
             
-            <!-- About Section -->
+            <!-- About Section (Refactored) -->
             <section id="about">
-                <h2 class="section-title">Biography</h2>
-                <div class="about-grid">
+                <!-- Top Part: Profile Header -->
+                <div class="profile-header">
                     <div class="profile-photo">
-                        <!-- 建议使用一张深色背景或正装的职业照 -->
-                        <img src="./img/photo.jpg" alt="Zedong Liu">
+                        <!-- 请记得替换这里为你的真实头像 -->
+                        <img src="https://ui-avatars.com/api/?name=Zedong+Liu&background=f0f0f0&color=333&size=512" alt="Zedong Liu">
                     </div>
-                    <div class="about-text">
-                        <p>
-                            I am a Researcher at <strong>[Institute/University Name]</strong>. My research interests span across <strong>Computer Vision</strong>, <strong>Machine Learning</strong>, and their applications in Robotics.
-                        </p>
-                        <p>
-                            I aim to develop efficient and robust algorithms that enable machines to perceive the world with minimal supervision. Previously, I obtained my Ph.D. from [University] advised by Prof. [Name].
-                        </p>
-                        <p style="margin-top: 20px; font-size: 0.9rem;">
-                            <span style="color: var(--accent-color);">Email:</span> zedong.liu [at] example.com <br>
-                            <span style="color: var(--accent-color);">Github:</span> github.com/zedongliu
-                        </p>
+                    <div class="profile-info">
+                        <h1>Zedong Liu</h1>
+                        <div class="profile-role">PhD Student</div>
+                        <div class="profile-affil">
+                            Institute of Computing Technology (ICT), <br>
+                            Chinese Academy of Sciences (CAS)
+                        </div>
+                        <div class="profile-contact">
+                            Email: <a href="mailto:captain.liu77@gmail.com">captain.liu77@gmail.com</a>
+                        </div>
+                        <div class="social-links">
+                            <!-- 请替换为你的真实链接 -->
+                            <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+                            <a href="https://github.com" target="_blank">GitHub</a>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Bottom Part: Wide Biography -->
+                <div class="bio-text">
+                    <p>
+                        I am a senior undergraduate student at the <strong>University of Electronic Science and Technology of China (UESTC)</strong>. I will soon begin my Ph.D. studies at the <strong>Institute of Computing Technology, Chinese Academy of Sciences (ICT, CAS)</strong>, advised by Prof. Dingwen Tao and Prof. Guangming Tan.
+                    </p>
+                    <p>
+                        My research interests primarily lie in <strong>machine learning systems</strong> and <strong>data compression</strong>, with a particular focus on efficient large-scale distributed inference and compression for massive scientific datasets. Recently, I have also become interested in the co-optimization of data compression techniques and large model inference systems.
+                    </p>
+                    <p>
+                        Please feel free to contact me if you’re interested in relevant research topics or would like to discuss potential collaborations!
+                    </p>
                 </div>
             </section>
 
@@ -414,52 +493,44 @@
             <section id="publications">
                 <h2 class="section-title">Selected Publications</h2>
                 
+                <!-- Placeholder Paper 1 (Updated to match research interests) -->
                 <div class="pub-item">
-                    <div class="pub-title">ElasticMM: Efficient Transformers for High-Resolution Image Synthesis</div>
-                    <div class="pub-authors"><strong>Zedong Liu</strong>, Co-author A, Co-author B</div>
-                    <div class="pub-venue">CVPR 2024 (Oral)</div>
+                    <div class="pub-title">Efficient Compression for Large-Scale Scientific Data</div>
+                    <div class="pub-authors"><strong>Zedong Liu</strong>, Dingwen Tao, Guangming Tan</div>
+                    <div class="pub-venue">Submitted to SC 2025</div>
                     <div class="pub-links">
-                        <a href="#">Paper</a>
+                        <a href="#">PDF</a>
                         <a href="#">Code</a>
+                    </div>
+                </div>
+
+                <!-- Placeholder Paper 2 -->
+                <div class="pub-item">
+                    <div class="pub-title">Optimizing Large Model Inference Systems</div>
+                    <div class="pub-authors">Collaborator A, <strong>Zedong Liu</strong>, Collaborator B</div>
+                    <div class="pub-venue">IEEE Transactions on Parallel and Distributed Systems (TPDS)</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
                         <a href="#">Project</a>
-                    </div>
-                </div>
-
-                <div class="pub-item">
-                    <div class="pub-title">Learning to Navigate in Dynamic Environments</div>
-                    <div class="pub-authors">Author X, <strong>Zedong Liu</strong>, Author Y</div>
-                    <div class="pub-venue">NeurIPS 2023</div>
-                    <div class="pub-links">
-                        <a href="#">Paper</a>
-                        <a href="#">Code</a>
-                    </div>
-                </div>
-
-                <div class="pub-item">
-                    <div class="pub-title">Self-Supervised Representation Learning for 3D Shapes</div>
-                    <div class="pub-authors"><strong>Zedong Liu</strong>, Advisor Z</div>
-                    <div class="pub-venue">ICCV 2023</div>
-                    <div class="pub-links">
-                        <a href="#">Paper</a>
                     </div>
                 </div>
             </section>
 
             <!-- Awards Section -->
             <section id="awards">
-                <h2 class="section-title">Awards</h2>
+                <h2 class="section-title">Honors & Awards</h2>
                 <ul class="award-list">
                     <li class="award-item">
                         <span class="award-year">2024</span>
-                        <span class="award-desc">Google PhD Fellowship</span>
+                        <span class="award-desc">Outstanding Graduate, UESTC</span>
                     </li>
                     <li class="award-item">
                         <span class="award-year">2023</span>
-                        <span class="award-desc">Best Paper Award Finalist, CVPR</span>
+                        <span class="award-desc">National Scholarship</span>
                     </li>
                     <li class="award-item">
                         <span class="award-year">2022</span>
-                        <span class="award-desc">National Scholarship</span>
+                        <span class="award-desc">First Prize, National Mathematics Competition</span>
                     </li>
                 </ul>
             </section>
@@ -467,18 +538,15 @@
         </div> <!-- End Container -->
 
         <footer>
-            <p>&copy; 2025 Zedong Liu. Theme designed for Researchers.</p>
+            <p>&copy; 2025 Zedong Liu. All Rights Reserved.</p>
         </footer>
 
     </div>
 
-    <!-- 脚本逻辑 -->
+    <!-- Script -->
     <script>
-        // 滚动监听与动画触发
         const nav = document.getElementById('navbar');
-        
         window.addEventListener('scroll', () => {
-            // 导航栏变色逻辑
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {
@@ -486,7 +554,6 @@
             }
         });
 
-        // 简单的入场动画
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -498,16 +565,19 @@
 
         document.querySelectorAll('section').forEach(s => observer.observe(s));
 
-        // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if(target) {
-                    const headerOffset = 70;
+                    const headerOffset = 80;
                     const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                    if (this.getAttribute('href') === '#home') {
+                         window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                    }
                 }
             });
         });
